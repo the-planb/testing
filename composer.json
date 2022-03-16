@@ -5,12 +5,12 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "PlanB\\Testing\\": "src/"
+            "PlanB\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "PlanB\\Tests\\Testing\\": "tests/"
+            "PlanB\\Tests\\": "tests/"
         }
     },
     "authors": [
@@ -23,5 +23,11 @@
         "bin-dir": "bin"
     },
     "require": {
+        "php": ">=8.1",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "php-ds/php-ds": "^1.4",
+        "phpunit/phpunit": "^9.5",
+        "dg/bypass-finals": "^1.3"
     }
 }
