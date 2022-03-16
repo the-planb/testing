@@ -1,0 +1,27 @@
+{
+    "name": "planb/testing",
+    "description": "testing utils",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "PlanB\\Testing\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PlanB\\Tests\\Testing\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "jmpantoja",
+            "email": "jmpantoja@gmail.com"
+        }
+    ],
+    "config": {
+        "bin-dir": "bin"
+    },
+    "require": {
+    }
+}
