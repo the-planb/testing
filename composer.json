@@ -1,33 +1,37 @@
 {
-    "name": "planb/testing",
-    "description": "testing utils",
-    "type": "library",
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "PlanB\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "PlanB\\Tests\\": "tests/"
-        }
-    },
-    "authors": [
-        {
-            "name": "jmpantoja",
-            "email": "jmpantoja@gmail.com"
-        }
-    ],
-    "config": {
-        "bin-dir": "bin"
-    },
-    "require": {
-        "php": ">=8.1",
-        "ext-ctype": "*",
-        "ext-iconv": "*",
-        "php-ds/php-ds": "^1.4",
-        "phpunit/phpunit": "^9.5",
-        "dg/bypass-finals": "^1.3"
+  "name": "planb/planb",
+  "description": "testing utils",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "PlanB\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "PlanB\\Tests\\": "tests/"
+    }
+  },
+  "authors": [
+    {
+      "name": "jmpantoja",
+      "email": "jmpantoja@gmail.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "config": {
+    "bin-dir": "bin"
+  },
+  "require": {
+    "php": ">=8.1",
+    "ext-ctype": "*",
+    "ext-iconv": "*",
+    "phpunit/phpunit": "^9.5",
+    "dg/bypass-finals": "^1.3"
+  },
+  "require-dev": {
+    "symfony/var-dumper": "^6.0",
+    "jetbrains/phpstorm-attributes": "^1.0"
+  }
 }

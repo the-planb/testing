@@ -30,8 +30,8 @@ sonar:
 	bin/phpunit tests/
 	sed 's:'$(PWD)'/::g' build/reports/coverage.xml > build/reports/coverage.relative.xml
 	docker run --rm -ti -v $(PWD):/usr/src --link sonarqube newtmitch/sonar-scanner sonar-scanner -X \
-	  -Dsonar.projectKey=Testing \
-	  -Dsonar.projectName=Testing \
+	  -Dsonar.projectKey=planb \
+	  -Dsonar.projectName=planb \
 	  -Dsonar.sources=src \
 	  -Dsonar.php.coverage.reportPaths=build/reports/coverage.relative.xml \
 	  -Dsonar.php.tests.reportPath=build/reports/tests.xml \
