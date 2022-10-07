@@ -60,6 +60,11 @@ trait CollectionTrait
         return $this->data;
     }
 
+    public function jsonSerialize(): mixed
+    {
+        return $this->toArray();
+    }
+
     /**
      * @return string[]
      */

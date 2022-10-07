@@ -6,9 +6,11 @@ namespace PlanB\DS;
 
 use Countable;
 use IteratorAggregate;
+use JsonSerializable;
 use PlanB\DS\Sequence\Sequence;
+use PlanB\Type\ArrayValue;
 
-interface CollectionInterface extends Countable, IteratorAggregate /* , ArrayAccess, JsonSerializable*/
+interface CollectionInterface extends Countable, IteratorAggregate, ArrayValue, JsonSerializable
 {
     public function __construct(iterable $input = []);
 
@@ -19,8 +21,6 @@ interface CollectionInterface extends Countable, IteratorAggregate /* , ArrayAcc
     public function isNotEmpty(): bool;
 
     public function isEmpty(): bool;
-
-    public function toArray(): array;
 
     public function get(mixed $key, mixed $default = null): mixed;
 

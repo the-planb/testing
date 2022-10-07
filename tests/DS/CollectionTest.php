@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace PlanB\Tests\DS;
 
+use Countable;
 use DateTime;
+use IteratorAggregate;
+use JsonSerializable;
 use PHPUnit\Framework\TestCase;
 use PlanB\DS\CollectionInterface;
 use PlanB\DS\Exception\ElementNotFoundException;
@@ -12,6 +15,7 @@ use PlanB\DS\Exception\InvalidElementType;
 use PlanB\DS\Sequence\Sequence;
 use PlanB\Tests\DS\Traits\Assertions;
 use PlanB\Tests\DS\Traits\ObjectMother;
+use PlanB\Type\ArrayValue;
 use stdClass;
 
 final class CollectionTest extends TestCase
@@ -19,6 +23,18 @@ final class CollectionTest extends TestCase
     use ObjectMother;
 
     use Assertions;
+
+    //CORE
+    public function test_a_collection_implements_the_right_interfaces()
+    {
+        $collection = $this->give_me_an_empty_collection();
+
+        $this->assertInstanceOf(CollectionInterface::class, $collection);
+        $this->assertInstanceOf(Countable::class, $collection);
+        $this->assertInstanceOf(JsonSerializable::class, $collection);
+        $this->assertInstanceOf(IteratorAggregate::class, $collection);
+        $this->assertInstanceOf(ArrayValue::class, $collection);
+    }
 
     public function test_it_extracts_the_types_from_the_elementType_attribute_properly()
     {
