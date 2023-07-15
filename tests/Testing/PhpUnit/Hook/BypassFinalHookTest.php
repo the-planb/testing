@@ -14,7 +14,7 @@ final class BypassFinalHookTest extends TestCase
         $hook = new BypassFinalHook();
         $hook->executeBeforeTest(__METHOD__);
 
-        $this->getMockClass(FinalClass::class);
+        $this->createMock(FinalClass::class);
         $this->addToAssertionCount(1); //porque no hay un método assertNotException
     }
 }
