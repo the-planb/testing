@@ -9,5 +9,4 @@ use PlanB\DS\Map\Traits\MapTrait;
 class Map implements MapImmutableInterface
 {
     use MapTrait;
-    private readonly array $data;
 }

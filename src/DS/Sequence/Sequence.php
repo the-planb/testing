@@ -11,6 +11,4 @@ class Sequence implements SequenceImmutableInterface
 {
     use CollectionTrait;
     use SequenceTrait;
-
-    private readonly array $data;
 }

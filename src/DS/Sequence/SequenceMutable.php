@@ -12,8 +12,6 @@ class SequenceMutable implements SequenceMutableInterface
     use CollectionTrait;
     use SequenceTrait;
 
-    private array $data = [];
-
     public function addAll(iterable $input): static
     {
         $this->assert($input);

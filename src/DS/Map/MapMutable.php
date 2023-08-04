@@ -10,8 +10,6 @@ class MapMutable implements MapMutableInterface
 {
     use MapTrait;
 
-    private array $data;
-
     public function putAll(iterable $input): static
     {
         $this->assert($input);

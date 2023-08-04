@@ -20,6 +20,8 @@ trait CollectionTrait
      */
     private readonly array $types;
 
+    protected array $data;
+
     public function __construct(iterable $input = [])
     {
         $elementType = ElementType::fromClass(static::class);
