@@ -14,26 +14,26 @@ class SequenceMutable implements SequenceMutableInterface
 
     public function addAll(iterable $input): static
     {
-        $this->assert($input);
-        foreach ($input as $value) {
-            $this->data[] = $value;
-        }
+        $data = $this->dealingData($input);
+        $this->data = [
+            ...$this->data,
+            ...$data,
+        ];
 
         return $this;
     }
 
     public function add(mixed $value): static
     {
-        $this->assert([$value]);
-        $this->data[] = $value;
-
-        return $this;
+        return $this->addAll([
+            $value,
+        ]);
     }
 
     public function insert(int $index, mixed ...$values): static
     {
-        $this->assert($values);
-        array_splice($this->data, $index, 0, $values);
+        $data = $this->dealingData($values);
+        array_splice($this->data, $index, 0, $data);
 
         return $this;
     }

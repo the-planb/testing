@@ -9,7 +9,9 @@ use PlanB\DS\Attribute\ElementType;
 use PlanB\DS\Exception\ElementNotFoundException;
 use PlanB\DS\Exception\InvalidElementType;
 use PlanB\DS\Map\Map;
+use PlanB\DS\Map\MapInterface;
 use PlanB\DS\Sequence\Sequence;
+use PlanB\DS\Sequence\SequenceInterface;
 use Traversable;
 
 trait CollectionTrait
@@ -27,30 +29,24 @@ trait CollectionTrait
         $elementType = ElementType::fromClass(static::class);
         $this->types = $elementType->getTypes();
 
+        $this->data = $this->dealingData($input);
+    }
+
+
+    private function dealingData(iterable $input): array
+    {
         $input = iterable_to_array($input);
-        $input = $this->before($input);
-
-        $this->assert($input);
-
-        $this->data = $this->ensureData($input);
-    }
-
-    public function before(array $input): array
-    {
-        return $input;
-    }
-
-    private function assert(iterable $input): void
-    {
-        if (0 === count($this->types)) {
-            return;
-        }
-        foreach ($input as $value) {
+        $data = [];
+        foreach ($input as $key => $value) {
             is_of_the_type($value, ...$this->types) || throw InvalidElementType::make($value, $this->types);
+
+            $newKey = $this instanceof MapInterface ? $this->normalizeKey($value, $key) : $key;
+            $data[$newKey] = $value;
         }
+
+        return $this instanceof SequenceInterface ? array_values($data) : $data;
     }
 
-    abstract private function ensureData(array $input): array;
 
     public static function collect(iterable $input = []): static
     {

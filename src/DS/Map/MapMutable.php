@@ -12,20 +12,21 @@ class MapMutable implements MapMutableInterface
 
     public function putAll(iterable $input): static
     {
-        $this->assert($input);
-        foreach ($input as $key => $value) {
-            $this->data[$key] = $value;
-        }
+        $data = $this->dealingData($input);
+        $this->data = [
+            ...$this->data,
+            ...$data,
+        ];
 
         return $this;
     }
 
     public function put(mixed $key, mixed $value): static
     {
-        $this->assert([$value]);
-        $this->data[$key] = $value;
+        return $this->putAll([
+            $key => $value,
+        ]);
 
-        return $this;
     }
 
     public function remove(mixed $key): static

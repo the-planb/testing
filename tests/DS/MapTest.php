@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PlanB\Tests\DS;
 
 use PHPUnit\Framework\TestCase;
+use PlanB\DS\Attribute\ElementType;
 use PlanB\DS\CollectionInterface;
 use PlanB\DS\Map\Map;
 use PlanB\DS\Map\MapImmutableInterface;
@@ -63,7 +64,25 @@ final class MapTest extends TestCase
         $this->assertCollectionHasNotChange($map);
     }
 
-//MODIFICATION
+    //MODIFICATION
+    public function test_it_normalize_keys_properly()
+    {
+        $input = ['beatriz', 'maria', 'ana'];
+        $expected = ['BEATRIZ' => 'beatriz', 'MARIA' => 'maria', 'ANA' => 'ana'];
+
+        $class = new #[ElementType('string')] class extends Map {
+
+            public function normalizeKey(mixed $value, mixed $key): mixed
+            {
+                return strtoupper($value);
+            }
+        };
+
+        $map = $class::collect($input);
+
+        $this->assertSame($expected, $map->toArray());
+    }
+
     public function test_it_can_sort_a_collection_using_natural_order_with_keys()
     {
         $input = ['beatriz' => 0, 'maria' => 10, 'luis' => 50, 'ana' => 20];

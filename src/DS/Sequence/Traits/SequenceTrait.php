@@ -30,8 +30,4 @@ trait SequenceTrait
             ->mapKeys($callback);
     }
 
-    private function ensureData(array $input): array
-    {
-        return array_values($input);
-    }
 }

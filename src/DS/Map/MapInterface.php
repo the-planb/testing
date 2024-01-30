@@ -18,6 +18,8 @@ interface MapInterface extends CollectionInterface
 
 
     // MODIFICATION
+    public function normalizeKey(mixed $value, mixed $key): mixed;
+
     public function merge(iterable $input): static;
 
     public function map(callable $callback): Map;

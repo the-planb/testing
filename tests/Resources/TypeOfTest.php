@@ -43,7 +43,7 @@ final class TypeOfTest extends TestCase
      */
     public function test_is_of_the_type_function_returns_false_if_no_types_are_provided(mixed $val)
     {
-        $this->assertFalse(is_of_the_type($val));
+        $this->assertTrue(is_of_the_type($val));
     }
 
     /**

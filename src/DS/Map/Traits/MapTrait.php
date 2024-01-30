@@ -36,6 +36,10 @@ trait MapTrait
     }
 
     // MODIFICATION
+    public function normalizeKey(mixed $value, mixed $key): mixed
+    {
+        return $key;
+    }
 
     public function map(callable $callback): Map
     {
@@ -113,10 +117,5 @@ trait MapTrait
         $data = array_intersect_ukey($this->data, $input, $comparison);
 
         return new static($data);
-    }
-
-    private function ensureData(array $input): array
-    {
-        return $input;
     }
 }

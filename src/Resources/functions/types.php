@@ -4,7 +4,7 @@ if (!function_exists('is_of_the_type')) {
     function is_of_the_type(mixed $value, string ...$types): bool
     {
         if (0 === count($types)) {
-            return false;
+            return true;
         }
 
         $temp = false;
