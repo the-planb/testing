@@ -360,6 +360,14 @@ trait CollectionTrait
         return static::collect($temp);
     }
 
+    public function shuffle(): static
+    {
+        $temp = $this->toArray();
+        uksort($temp, fn () => rand() - rand());
+
+        return static::collect($temp);
+    }
+
     public function applyTo(callable $callback): mixed
     {
         return $callback($this);

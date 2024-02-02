@@ -76,5 +76,7 @@ interface CollectionInterface extends Countable, IteratorAggregate, ArrayValue, 
 
     public function collapse(int $depth = PHP_INT_MAX, string $glue = DIRECTORY_SEPARATOR): static;
 
+    public function shuffle(): static;
+
     public function applyTo(callable $callback): mixed;
 }

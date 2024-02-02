@@ -725,6 +725,23 @@ final class CollectionTest extends TestCase
         $this->assertEquals($level3, $collection->collapse(3));
     }
 
+    public function test_it_can_be_shuffle()
+    {
+        $input = range(0, 100);
+        shuffle($input);
+        $input = array_slice($input, 0, 50);
+
+        $collection = $this->give_me_a_collection($input);
+
+        $original = array_values($collection->toArray());
+        $shuffled = array_values($collection->shuffle()->toArray());
+
+        $this->assertNotEquals($original, $shuffled);
+
+        sort($original);
+        sort($shuffled);
+        $this->assertEquals($original, $shuffled);
+    }
 
     public function test_it_can_be_passed_to_a_custom_function()
     {
