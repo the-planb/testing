@@ -9,7 +9,8 @@
     },
     "files": [
       "src/Resources/functions/types.php",
-      "src/Resources/functions/arrays.php"
+      "src/Resources/functions/arrays.php",
+      "src/Resources/functions/ds.php"
     ]
   },
   "autoload-dev": {
