@@ -5,12 +5,26 @@ declare(strict_types=1);
 namespace PlanB\Tests\DS;
 
 use PHPUnit\Framework\TestCase;
+use PlanB\DS\CollectionInterface;
 use PlanB\DS\Exception\InvalidElementType;
+use PlanB\DS\Vector\VectorInterface;
+use PlanB\DS\Vector\VectorMutable;
+use PlanB\DS\Vector\VectorMutableInterface;
 use PlanB\Tests\DS\Traits\ObjectMother;
 
 final class VectorMutableTest extends TestCase
 {
     use ObjectMother;
+
+
+    public function test_it_can_be_instantiate()
+    {
+        $vector = VectorMutable::collect();
+        $this->assertInstanceOf(VectorMutable::class, $vector);
+        $this->assertInstanceOf(VectorMutableInterface::class, $vector);
+        $this->assertInstanceOf(CollectionInterface::class, $vector);
+        $this->assertInstanceOf(VectorInterface::class, $vector);
+    }
 
     public function test_its_possible_to_add_some_new_elements()
     {

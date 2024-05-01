@@ -1,13 +1,27 @@
 <?php
 
-namespace PlanB\String;
+namespace PlanB\Text;
 
 use PlanB\DS\Attribute\ElementType;
-use PlanB\DS\Vector\Vector;
+use PlanB\DS\Collection;
+use PlanB\DS\Vector\Traits\VectorTrait;
+use PlanB\DS\Vector\VectorInterface;
 
 #[ElementType('string', \Stringable::class)]
-final class WordList extends Vector
+final class TextList extends Collection implements VectorInterface
 {
+    use VectorTrait;
+
+    final public function __construct(iterable|string $input = [])
+    {
+        parent::__construct($input);
+    }
+
+    public static function collect(iterable|string $input = []): self
+    {
+        return new self($input);
+    }
+
     public static function explode(string $text, string $separator = null, int $limit = null): self
     {
         if (is_null($separator)) {

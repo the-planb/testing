@@ -5,30 +5,25 @@ declare(strict_types=1);
 namespace PlanB\Tests\DS;
 
 use PHPUnit\Framework\TestCase;
+use PlanB\DS\CollectionInterface;
 use PlanB\DS\Exception\InvalidElementType;
+use PlanB\DS\Map\MapInterface;
+use PlanB\DS\Map\MapMutable;
+use PlanB\DS\Map\MapMutableInterface;
 use PlanB\Tests\DS\Traits\ObjectMother;
 
 final class MapMutableTest extends TestCase
 {
     use ObjectMother;
 
-//    public function test_its_kokoable()
-//    {
-//        $map = $this->give_me_a_mutable_and_typed_map([
-//            'a' => 'AAA',
-//            'b' => 'BBB',
-//            'int' => 45
-//        ], ['int']);
-//
-//        dump($map->getAllowedTypes());
-//        dump($map->toArray());
-//
-//        $taked = $map->take(2);
-//
-//        dump($taked->getAllowedTypes());
-//        dump($taked->toArray());
-//
-//    }
+    public function test_it_can_be_instantiate()
+    {
+        $vector = MapMutable::collect();
+        $this->assertInstanceOf(MapMutable::class, $vector);
+        $this->assertInstanceOf(MapMutableInterface::class, $vector);
+        $this->assertInstanceOf(CollectionInterface::class, $vector);
+        $this->assertInstanceOf(MapInterface::class, $vector);
+    }
 
     public function test_its_possible_to_add_some_new_elements()
     {

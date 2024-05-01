@@ -12,9 +12,9 @@ use PlanB\Type\ArrayValue;
 
 interface CollectionInterface extends Countable, IteratorAggregate, ArrayValue, JsonSerializable
 {
-    public function __construct(iterable $input = [], array $types = [], bool $filter = true);
+    //    public function __construct(iterable $input = [], array $types = [], bool $filter = true);
 
-    public static function collect(iterable $input = []): static;
+    //    public static function collect(iterable $input = []): static;
 
     public function getAllowedTypes(): array;
 

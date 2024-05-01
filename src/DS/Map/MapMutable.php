@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace PlanB\DS\Map;
 
 use PlanB\DS\Collection;
-use PlanB\DS\Map\Traits\MapTrait;
+use PlanB\DS\Map\Traits\MapMutableTrait;
 
 /**
  * @template Key of string|int
@@ -15,55 +15,21 @@ use PlanB\DS\Map\Traits\MapTrait;
 class MapMutable extends Collection implements MapMutableInterface
 {
     /**
-     * @use MapTrait<Key, Value>
+     * @use MapMutableTrait<Key, Value>
      */
-    use MapTrait;
+    use MapMutableTrait;
+
+    final public function __construct(iterable $input = [], array $types = [], bool $filter = true)
+    {
+        parent::__construct($input, $types, $filter);
+    }
 
     /**
      * @param Value[] $input
      */
-    public function putAll(iterable $input): static
+    public static function collect(iterable $input = []): static
     {
-        $data = $this->dealingData($input);
-        $this->data = [
-            ...$this->data,
-            ...$data,
-        ];
-
-        return $this;
+        return new static($input);
     }
 
-    /**
-     * @param Key $key
-     * @param Value $value
-     */
-    public function put(mixed $key, mixed $value): static
-    {
-        return $this->putAll([
-            $key => $value,
-        ]);
-    }
-
-    /**
-     * @param Key $key
-     */
-    public function remove(mixed $key): static
-    {
-        unset($this->data[$key]);
-
-        return $this;
-    }
-
-    /**
-     * @param Value $value
-     */
-    public function removeValue(mixed $value): static
-    {
-        $key = $this->find($value);
-        if (null === $key) {
-            return $this;
-        }
-
-        return $this->remove($key);
-    }
 }

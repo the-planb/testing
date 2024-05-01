@@ -65,12 +65,4 @@ abstract class Collection implements CollectionInterface
         return $this instanceof VectorInterface ? array_values($data) : $data;
     }
 
-    /**
-     * @param Value[] $input
-     */
-    public static function collect(iterable $input = []): static
-    {
-        return new static($input);
-    }
-
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PlanB\DS\Vector\Traits;
 
 use PlanB\DS\Map\Map;
+use PlanB\DS\Traits\CollectionTrait;
 use PlanB\DS\Vector\Vector;
 
 /**
@@ -13,6 +14,11 @@ use PlanB\DS\Vector\Vector;
  */
 trait VectorTrait
 {
+    /**
+     * @use CollectionTrait<Key, Value>
+     */
+    use CollectionTrait;
+
     /**
      * @template ReturnType
      * @param callable(Value, Key): ReturnType $callback

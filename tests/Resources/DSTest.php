@@ -9,6 +9,7 @@ use PlanB\DS\Map\Map;
 use PlanB\DS\Map\MapMutable;
 use PlanB\DS\Vector\Vector;
 use PlanB\DS\Vector\VectorMutable;
+use PlanB\Text\TextList;
 
 final class DSTest extends TestCase
 {
@@ -29,12 +30,37 @@ final class DSTest extends TestCase
     {
         $vector = vector();
         $this->assertInstanceOf(Vector::class, $vector);
-
     }
 
     public function test_it_mutable_vector_alias_works()
     {
         $vector = mutable_vector();
         $this->assertInstanceOf(VectorMutable::class, $vector);
+    }
+
+    public function test_it_text_collect_alias_works()
+    {
+        $text = textList();
+        $this->assertInstanceOf(TextList::class, $text);
+    }
+
+    public function test_it_text_collect_alias_works_when_has_a_callback()
+    {
+        $text = textList(['a', 'b', 'c'], strtoupper(...));
+        $this->assertInstanceOf(TextList::class, $text);
+
+        $this->assertEquals(['A', 'B', 'C'], $text->toArray());
+    }
+
+    public function test_it_text_explode_alias_works()
+    {
+        $text = text_explode('');
+        $this->assertInstanceOf(TextList::class, $text);
+    }
+
+    public function test_it_text_split_alias_works()
+    {
+        $text = text_split('', '//');
+        $this->assertInstanceOf(TextList::class, $text);
     }
 }

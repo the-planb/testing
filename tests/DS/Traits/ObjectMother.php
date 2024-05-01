@@ -38,6 +38,10 @@ trait  ObjectMother
 
         return new  class($input, $types, $filter) extends Collection {
 
+            public static function collect(iterable $input = []): static
+            {
+                return new static($input);
+            }
         };
     }
 
