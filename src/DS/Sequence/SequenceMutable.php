@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace PlanB\DS\Sequence;
 
+use PlanB\DS\Collection;
 use PlanB\DS\Sequence\Traits\SequenceTrait;
-use PlanB\DS\Traits\CollectionTrait;
 
-class SequenceMutable implements SequenceMutableInterface
+class SequenceMutable extends Collection implements SequenceMutableInterface
 {
-    use CollectionTrait;
     use SequenceTrait;
 
     public function addAll(iterable $input): static

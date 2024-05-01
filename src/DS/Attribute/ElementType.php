@@ -29,6 +29,16 @@ final class ElementType
         return $attributes[0]->newInstance();
     }
 
+    public function merge(string ...$types): self
+    {
+        $this->types = array_unique([
+            ...$this->types,
+            ...$types,
+        ]);
+
+        return $this;
+    }
+
     /**
      * @return string[]
      */

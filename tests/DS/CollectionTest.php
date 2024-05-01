@@ -47,8 +47,50 @@ final class CollectionTest extends TestCase
         ], $collection->getAllowedTypes());
     }
 
-    //CORE
+    public function test_it_merge_types_from_the_elementType_attribute_and_constructor_properly()
+    {
+        $collection = $this->give_me_a_typed_collection(types: ['int']);
 
+        $this->assertEquals([
+            'string',
+            DateTime::class,
+            'int'
+
+        ], $collection->getAllowedTypes());
+    }
+
+    public function test_it_discard_the_nulls_values()
+    {
+        $collection = $this->give_me_a_collection([
+            null, 'a', 'b', null, 'c'
+        ], ['string']);
+
+        $this->assertEquals(['a', 'b', 'c'], array_values($collection->toArray()));
+    }
+
+    public function test_it_allows_nulls_values_when_null_type_is_present()
+    {
+        $collection = $this->give_me_a_collection([
+            null, 'a', 'b', null, 'c'
+        ], ['string', 'null']);
+
+        $this->assertEquals([null, 'a', 'b', null, 'c'], array_values($collection->toArray()));
+    }
+
+    public function test_it_throws_an_exception_when_input_has_null_values_and_it_is_not_filtered()
+    {
+        $this->expectException(InvalidElementType::class);
+
+        $this->give_me_a_collection(
+            input: [
+                null, 'a', 'b', null, 'c'
+            ],
+            types: ['string'],
+            filter: false
+        );
+    }
+
+    //CORE
     public function test_it_throws_an_exception_when_is_instantiated_with_an_invalid_element()
     {
         $this->expectException(InvalidElementType::class);
@@ -140,21 +182,6 @@ final class CollectionTest extends TestCase
         $this->assertSame('value/X', $collection->get('X'));
     }
 
-    public function test_it_gets_the_head_element()
-    {
-        $collection = $this->give_me_a_collection();
-
-        $this->assertSame('value/A', $collection->head());
-        $this->assertCollectionHasNotChange($collection);
-    }
-
-    public function test_first_method_is_an_alias_of_head_method()
-    {
-        $collection = $this->give_me_a_collection();
-
-        $this->assertSame($collection->head(), $collection->first());
-        $this->assertCollectionHasNotChange($collection);
-    }
 
     public function test_it_gets_the_first_element_that_meets_a_condition()
     {

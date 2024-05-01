@@ -12,6 +12,24 @@ final class MapMutableTest extends TestCase
 {
     use ObjectMother;
 
+//    public function test_its_kokoable()
+//    {
+//        $map = $this->give_me_a_mutable_and_typed_map([
+//            'a' => 'AAA',
+//            'b' => 'BBB',
+//            'int' => 45
+//        ], ['int']);
+//
+//        dump($map->getAllowedTypes());
+//        dump($map->toArray());
+//
+//        $taked = $map->take(2);
+//
+//        dump($taked->getAllowedTypes());
+//        dump($taked->toArray());
+//
+//    }
+
     public function test_its_possible_to_add_some_new_elements()
     {
         $map = $this->give_me_a_mutable_and_typed_map();

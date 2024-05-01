@@ -32,7 +32,7 @@ trait MapTrait
     {
         $data = array_merge($this->toArray(), iterable_to_array($input));
 
-        return new static($data);
+        return $this->replicate($data);
     }
 
     // MODIFICATION
@@ -59,7 +59,7 @@ trait MapTrait
             $input[$newKey] = $value;
         }
 
-        return new static($input);
+        return $this->replicate($input);
     }
 
     public function ksort(callable $comparison = null): static
@@ -69,12 +69,12 @@ trait MapTrait
         if (null === $comparison) {
             ksort($data);
 
-            return new static($data);
+            return $this->replicate($data);
         }
 
         uksort($data, $comparison);
 
-        return new static($data);
+        return $this->replicate($data);
     }
 
     public function diffKeys(iterable $input, callable $comparison = null): static
@@ -83,12 +83,12 @@ trait MapTrait
         if (is_null($comparison)) {
             $data = array_diff_key($this->data, $input);
 
-            return new static($data);
+            return $this->replicate($data);
         }
 
         $data = array_diff_ukey($this->data, $input, $comparison);
 
-        return new static($data);
+        return $this->replicate($data);
     }
 
     public function intersect(iterable $input, callable $comparison = null): static
@@ -97,12 +97,12 @@ trait MapTrait
         if (is_null($comparison)) {
             $data = array_intersect($this->data, $input);
 
-            return new static($data);
+            return $this->replicate($data);
         }
 
         $data = array_uintersect($this->data, $input, $comparison);
 
-        return new static($data);
+        return $this->replicate($data);
     }
 
     public function intersectKeys(iterable $input, callable $comparison = null): static
@@ -111,11 +111,11 @@ trait MapTrait
         if (is_null($comparison)) {
             $data = array_intersect_key($this->data, $input);
 
-            return new static($data);
+            return $this->replicate($data);
         }
 
         $data = array_intersect_ukey($this->data, $input, $comparison);
 
-        return new static($data);
+        return $this->replicate($data);
     }
 }

@@ -12,7 +12,7 @@ use PlanB\Type\ArrayValue;
 
 interface CollectionInterface extends Countable, IteratorAggregate, ArrayValue, JsonSerializable
 {
-    public function __construct(iterable $input = []);
+    public function __construct(iterable $input = [], array $types = [], bool $filter = true);
 
     public static function collect(iterable $input = []): static;
 
@@ -23,8 +23,6 @@ interface CollectionInterface extends Countable, IteratorAggregate, ArrayValue, 
     public function isEmpty(): bool;
 
     public function get(mixed $key, mixed $default = null): mixed;
-
-    public function head(): mixed;
 
     public function first(): mixed;
 

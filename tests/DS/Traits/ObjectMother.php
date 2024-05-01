@@ -6,6 +6,7 @@ namespace PlanB\Tests\DS\Traits;
 
 use DateTime;
 use PlanB\DS\Attribute\ElementType;
+use PlanB\DS\Collection;
 use PlanB\DS\CollectionInterface;
 use PlanB\DS\Map\Map;
 use PlanB\DS\Map\MapInterface;
@@ -13,22 +14,16 @@ use PlanB\DS\Map\MapMutable;
 use PlanB\DS\Sequence\Sequence;
 use PlanB\DS\Sequence\SequenceInterface;
 use PlanB\DS\Sequence\SequenceMutable;
-use PlanB\DS\Traits\CollectionTrait;
 use Prophecy\PhpUnit\ProphecyTrait;
 
 trait  ObjectMother
 {
     use ProphecyTrait;
 
-    private function give_me_a_typed_collection(iterable $input = []): CollectionInterface
+    private function give_me_a_typed_collection(iterable $input = [], array $types = [], bool $filter = true): CollectionInterface
     {
-        return new #[ElementType('string', DateTime::class)] class($input) implements CollectionInterface {
-            use CollectionTrait;
+        return new #[ElementType('string', DateTime::class)] class($input, $types, $filter) extends Collection {
 
-            private function ensureData(array $input): array
-            {
-                return $input;
-            }
         };
     }
 
@@ -37,17 +32,12 @@ trait  ObjectMother
         return $this->give_me_a_collection([]);
     }
 
-    private function give_me_a_collection(?iterable $input = null): CollectionInterface
+    private function give_me_a_collection(?iterable $input = null, array $types = [], bool $filter = true): CollectionInterface
     {
         $input = is_null($input) ? $this->give_me_an_array() : $input;
 
-        return new  class($input) implements CollectionInterface {
-            use CollectionTrait;
+        return new  class($input, $types, $filter) extends Collection {
 
-            private function ensureData(array $input): array
-            {
-                return $input;
-            }
         };
     }
 
@@ -80,16 +70,16 @@ trait  ObjectMother
         return Map::collect([]);
     }
 
-    private function give_me_a_mutable_and_typed_map()
+    private function give_me_a_mutable_and_typed_map(iterable $input = [], array $types = [], bool $filter = true): MapMutable
     {
-        return new #[ElementType('string')] class extends MapMutable {
+        return new #[ElementType('string')] class($input, $types, $filter) extends MapMutable {
 
         };
     }
 
-    private function give_me_a_mutable_and_typed_sequence()
+    private function give_me_a_mutable_and_typed_sequence(iterable $input = [], array $types = [], bool $filter = true): SequenceMutable
     {
-        return new #[ElementType('string')] class extends SequenceMutable {
+        return new #[ElementType('string')] class($input, $types, $filter) extends SequenceMutable {
 
         };
     }

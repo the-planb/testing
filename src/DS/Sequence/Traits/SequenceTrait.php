@@ -26,7 +26,7 @@ trait SequenceTrait
 
     public function toMap(callable $callback): Map
     {
-        return Map::collect($this->data)
+        return (new Map($this->data, $this->types, $this->filterInput))
             ->mapKeys($callback);
     }
 

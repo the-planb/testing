@@ -5,60 +5,25 @@ declare(strict_types=1);
 namespace PlanB\DS\Traits;
 
 use JetBrains\PhpStorm\Pure;
-use PlanB\DS\Attribute\ElementType;
 use PlanB\DS\Exception\ElementNotFoundException;
-use PlanB\DS\Exception\InvalidElementType;
 use PlanB\DS\Map\Map;
-use PlanB\DS\Map\MapInterface;
 use PlanB\DS\Sequence\Sequence;
-use PlanB\DS\Sequence\SequenceInterface;
 use Traversable;
 
 trait CollectionTrait
 {
     //CORE
-    /**
-     * @var string[]
-     */
-    private readonly array $types;
-
-    protected array $data;
-
-    public function __construct(iterable $input = [])
-    {
-        $elementType = ElementType::fromClass(static::class);
-        $this->types = $elementType->getTypes();
-
-        $this->data = $this->dealingData($input);
-    }
-
-
-    private function dealingData(iterable $input): array
-    {
-        $input = iterable_to_array($input);
-        $data = [];
-        foreach ($input as $key => $value) {
-            is_of_the_type($value, ...$this->types) || throw InvalidElementType::make($value, $this->types);
-
-            $newKey = $this instanceof MapInterface ? $this->normalizeKey($value, $key) : $key;
-            $data[$newKey] = $value;
-        }
-
-        return $this instanceof SequenceInterface ? array_values($data) : $data;
-    }
-
-
-    public static function collect(iterable $input = []): static
-    {
-        return new static($input);
-    }
-
     public function toArray(): array
     {
         return $this->data;
     }
 
-    public function jsonSerialize(): mixed
+    private function replicate(iterable $input = []): static
+    {
+        return new static($input, $this->types, $this->filterInput);
+    }
+
+    public function jsonSerialize(): array
     {
         return $this->toArray();
     }
@@ -91,13 +56,7 @@ trait CollectionTrait
     }
 
     //GETTERS
-
     public function first(): mixed
-    {
-        return $this->head();
-    }
-
-    public function head(): mixed
     {
         $key = array_key_first($this->data);
 
@@ -106,7 +65,7 @@ trait CollectionTrait
 
     public function firstThat(callable $condition): mixed
     {
-        foreach ($this as $key => $value) {
+        foreach ($this->getIterator() as $key => $value) {
             if ($condition($value, $key)) {
                 return $value;
             }
@@ -161,7 +120,7 @@ trait CollectionTrait
 
         $input = array_slice($this->data, 0, $numOfElements, true);
 
-        return new static($input);
+        return $this->replicate($input);
     }
 
     public function tail(): static
@@ -176,7 +135,7 @@ trait CollectionTrait
 
         $input = array_slice($this->data, $numOfElements, $length, true);
 
-        return new static($input);
+        return $this->replicate($input);
     }
 
     public function takeWhile(callable $condition): static
@@ -267,12 +226,12 @@ trait CollectionTrait
         if (null === $condition) {
             $input = array_filter($this->data);
 
-            return new static($input);
+            return $this->replicate($input);
         }
 
         $input = array_filter($this->data, $condition, ARRAY_FILTER_USE_BOTH);
 
-        return new static($input);
+        return $this->replicate($input);
     }
 
     public function sort(callable $comparison = null): static
@@ -282,12 +241,12 @@ trait CollectionTrait
         if (null === $comparison) {
             asort($data);
 
-            return new static($data);
+            return $this->replicate($data);
         }
 
         uasort($data, $comparison);
 
-        return new static($data);
+        return $this->replicate($data);
     }
 
     public function diff(iterable $input, callable $comparison = null): static
@@ -296,12 +255,12 @@ trait CollectionTrait
         if (is_null($comparison)) {
             $data = array_diff($this->data, $input);
 
-            return new static($data);
+            return $this->replicate($data);
         }
 
         $data = array_udiff($this->data, $input, $comparison);
 
-        return new static($data);
+        return $this->replicate($data);
     }
 
     public function unique(callable $callback = null, bool $strict = false): static
@@ -326,7 +285,7 @@ trait CollectionTrait
     {
         $data = array_reverse($this->toArray(), true);
 
-        return new static($data);
+        return $this->replicate($data);
     }
 
     public function reduce(callable $callback, mixed $initial = null): mixed
@@ -365,7 +324,7 @@ trait CollectionTrait
         $temp = $this->toArray();
         uksort($temp, fn () => rand() - rand());
 
-        return static::collect($temp);
+        return $this->replicate($temp);
     }
 
     public function applyTo(callable $callback): mixed
