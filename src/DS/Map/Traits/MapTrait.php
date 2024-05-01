@@ -8,26 +8,47 @@ use PlanB\DS\Map\Map;
 use PlanB\DS\Sequence\Sequence;
 use PlanB\DS\Traits\CollectionTrait;
 
+/**
+ * @template Key of string|int
+ * @template Value
+ */
 trait MapTrait
 {
+    /**
+     * @use CollectionTrait<Key, Value>
+     */
     use CollectionTrait;
 
     //INFO
-    public function hasKey(mixed $key): bool
+
+    /**
+     * @param Key $key
+     * @return bool
+     */
+    public function hasKey(int|string $key): bool
     {
         return array_key_exists($key, $this->data);
     }
 
+    /**
+     * @return Sequence<Value>
+     */
     public function values(): Sequence
     {
         return new Sequence(array_values($this->data));
     }
 
+    /**
+     * @return Sequence<Key>
+     */
     public function keys(): Sequence
     {
         return new Sequence(array_keys($this->data));
     }
 
+    /**
+     * @param Value[] $input
+     */
     public function merge(iterable $input): static
     {
         $data = array_merge($this->toArray(), iterable_to_array($input));
@@ -36,11 +57,22 @@ trait MapTrait
     }
 
     // MODIFICATION
-    public function normalizeKey(mixed $value, mixed $key): mixed
+
+    /**
+     * @param Value $value
+     * @param Key $key
+     * @return Key
+     */
+    public function normalizeKey(mixed $value, string|int $key): string|int
     {
         return $key;
     }
 
+    /**
+     * @template ReturnType
+     * @param callable(Value, Key): ReturnType $callback
+     * @return Map<ReturnType>
+     */
     public function map(callable $callback): Map
     {
         $input = [];
@@ -51,6 +83,9 @@ trait MapTrait
         return new Map($input);
     }
 
+    /**
+     * @param callable(Value, Key): Key $callback
+     */
     public function mapKeys(callable $callback): static
     {
         $input = [];
@@ -62,6 +97,9 @@ trait MapTrait
         return $this->replicate($input);
     }
 
+    /**
+     * @param null|callable(Key, Key): int $comparison
+     */
     public function ksort(callable $comparison = null): static
     {
         $data = $this->toArray();
@@ -77,6 +115,10 @@ trait MapTrait
         return $this->replicate($data);
     }
 
+    /**
+     * @param Value[] $input
+     * @param null|callable(Key, Key): int $comparison
+     */
     public function diffKeys(iterable $input, callable $comparison = null): static
     {
         $input = iterable_to_array($input);
@@ -91,6 +133,10 @@ trait MapTrait
         return $this->replicate($data);
     }
 
+    /**
+     * @param Value[] $input
+     * @param null|callable(Value, Value): int $comparison
+     */
     public function intersect(iterable $input, callable $comparison = null): static
     {
         $input = iterable_to_array($input);
@@ -105,6 +151,10 @@ trait MapTrait
         return $this->replicate($data);
     }
 
+    /**
+     * @param Value[] $input
+     * @param null|callable(Key, Key): int $comparison
+     */
     public function intersectKeys(iterable $input, callable $comparison = null): static
     {
         $input = iterable_to_array($input);

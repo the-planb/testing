@@ -10,7 +10,7 @@ use PlanB\DS\Sequence\Sequence;
 interface MapInterface extends CollectionInterface
 {
     // INFO
-    public function hasKey(mixed $key): bool;
+    public function hasKey(int|string $key): bool;
 
     public function values(): Sequence;
 
@@ -18,7 +18,7 @@ interface MapInterface extends CollectionInterface
 
 
     // MODIFICATION
-    public function normalizeKey(mixed $value, mixed $key): mixed;
+    public function normalizeKey(mixed $value, string|int $key): string|int;
 
     public function merge(iterable $input): static;
 

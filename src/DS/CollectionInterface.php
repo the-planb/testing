@@ -22,7 +22,7 @@ interface CollectionInterface extends Countable, IteratorAggregate, ArrayValue, 
 
     public function isEmpty(): bool;
 
-    public function get(mixed $key, mixed $default = null): mixed;
+    public function get(string|int $key, mixed $default = null): mixed;
 
     public function first(): mixed;
 
@@ -76,5 +76,4 @@ interface CollectionInterface extends Countable, IteratorAggregate, ArrayValue, 
 
     public function shuffle(): static;
 
-    public function applyTo(callable $callback): mixed;
 }

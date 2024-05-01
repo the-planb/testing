@@ -10,8 +10,15 @@ use PlanB\DS\Map\MapInterface;
 use PlanB\DS\Sequence\SequenceInterface;
 use PlanB\DS\Traits\CollectionTrait;
 
+/**
+ * @template Key of string|int
+ * @template Value
+ */
 abstract class Collection implements CollectionInterface
 {
+    /**
+     * @use CollectionTrait<Key, Value>
+     */
     use CollectionTrait;
 
     /**
@@ -23,6 +30,11 @@ abstract class Collection implements CollectionInterface
 
     protected array $data;
 
+    /**
+     * @param Value[] $input
+     * @param string[] $types
+     * @param bool $filter
+     */
     public function __construct(iterable $input = [], array $types = [], bool $filter = true)
     {
         $elementType = ElementType::fromClass(static::class)
@@ -53,10 +65,12 @@ abstract class Collection implements CollectionInterface
         return $this instanceof SequenceInterface ? array_values($data) : $data;
     }
 
+    /**
+     * @param Value[] $input
+     */
     public static function collect(iterable $input = []): static
     {
         return new static($input);
     }
-
 
 }

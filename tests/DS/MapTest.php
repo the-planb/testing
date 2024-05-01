@@ -72,7 +72,7 @@ final class MapTest extends TestCase
 
         $class = new #[ElementType('string')] class extends Map {
 
-            public function normalizeKey(mixed $value, mixed $key): mixed
+            public function normalizeKey(mixed $value, string|int $key): string|int
             {
                 return strtoupper($value);
             }

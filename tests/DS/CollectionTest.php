@@ -18,6 +18,7 @@ use PlanB\Tests\DS\Traits\ObjectMother;
 use PlanB\Type\ArrayValue;
 use stdClass;
 
+
 final class CollectionTest extends TestCase
 {
     use ObjectMother;
@@ -770,17 +771,6 @@ final class CollectionTest extends TestCase
         $this->assertEquals($original, $shuffled);
     }
 
-    public function test_it_can_be_passed_to_a_custom_function()
-    {
-        $collection = $this->give_me_a_collection();
-
-        $callback = function ($param) use ($collection) {
-            $this->assertEquals($param, $collection);
-        };
-
-        $collection = $this->give_me_a_collection();
-        $collection->applyTo($callback);
-    }
 
     public function test_it_serializes_as_json_properly()
     {

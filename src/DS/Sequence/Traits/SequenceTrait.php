@@ -7,8 +7,17 @@ namespace PlanB\DS\Sequence\Traits;
 use PlanB\DS\Map\Map;
 use PlanB\DS\Sequence\Sequence;
 
+/**
+ * @template Key of int
+ * @template Value
+ */
 trait SequenceTrait
 {
+    /**
+     * @template ReturnType
+     * @param callable(Value, Key): ReturnType $callback
+     * @return Sequence<ReturnType>
+     */
     public function map(callable $callback): Sequence
     {
         $input = [];
@@ -24,6 +33,10 @@ trait SequenceTrait
         return array_key_exists($index, $this->data);
     }
 
+    /**
+     * @param callable(Value, Key): Key $callback
+     * @return Map<Value>
+     */
     public function toMap(callable $callback): Map
     {
         return (new Map($this->data, $this->types, $this->filterInput))
