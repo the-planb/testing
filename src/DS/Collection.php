@@ -7,8 +7,8 @@ namespace PlanB\DS;
 use PlanB\DS\Attribute\ElementType;
 use PlanB\DS\Exception\InvalidElementType;
 use PlanB\DS\Map\MapInterface;
-use PlanB\DS\Sequence\SequenceInterface;
 use PlanB\DS\Traits\CollectionTrait;
+use PlanB\DS\Vector\VectorInterface;
 
 /**
  * @template Key of string|int
@@ -62,7 +62,7 @@ abstract class Collection implements CollectionInterface
             $data[$newKey] = $value;
         }
 
-        return $this instanceof SequenceInterface ? array_values($data) : $data;
+        return $this instanceof VectorInterface ? array_values($data) : $data;
     }
 
     /**

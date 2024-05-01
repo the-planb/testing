@@ -8,7 +8,7 @@ use Exception;
 use JetBrains\PhpStorm\Pure;
 use PlanB\DS\Exception\ElementNotFoundException;
 use PlanB\DS\Map\Map;
-use PlanB\DS\Sequence\Sequence;
+use PlanB\DS\Vector\Vector;
 use Traversable;
 
 /**
@@ -392,18 +392,18 @@ trait CollectionTrait
         return $carry;
     }
 
-    public function flatMap(callable $callback, int $depth = PHP_INT_MAX): Sequence
+    public function flatMap(callable $callback, int $depth = PHP_INT_MAX): Vector
     {
         return Map::collect($this->toArray())
             ->map($callback)
             ->flatten($depth);
     }
 
-    public function flatten(int $depth = PHP_INT_MAX): Sequence
+    public function flatten(int $depth = PHP_INT_MAX): Vector
     {
         $temp = array_flatten($this->toArray(), $depth);
 
-        return Sequence::collect($temp);
+        return Vector::collect($temp);
     }
 
     public function collapse(int $depth = PHP_INT_MAX, string $glue = DIRECTORY_SEPARATOR): static

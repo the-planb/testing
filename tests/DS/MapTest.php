@@ -36,10 +36,10 @@ final class MapTest extends TestCase
         $this->assertFalse($map->hasKey('F'));
     }
 
-    public function test_it_gets_a_sequence_with_the_values()
+    public function test_it_gets_a_vector_with_the_values()
     {
         $map = $this->give_me_a_map();
-        $expected = $this->give_me_a_sequence([
+        $expected = $this->give_me_a_vector([
             'value/A',
             'value/B',
             'value/C',
@@ -50,10 +50,10 @@ final class MapTest extends TestCase
         $this->assertCollectionHasNotChange($map);
     }
 
-    public function test_it_gets_a_sequence_with_the_keys()
+    public function test_it_gets_a_vector_with_the_keys()
     {
         $map = $this->give_me_a_map();
-        $expected = $this->give_me_a_sequence([
+        $expected = $this->give_me_a_vector([
             'A',
             'B',
             'C',

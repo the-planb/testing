@@ -7,16 +7,15 @@ namespace PlanB\Tests\DS;
 use PHPUnit\Framework\TestCase;
 use PlanB\DS\CollectionInterface;
 use PlanB\DS\Map\MapImmutableInterface;
-use PlanB\DS\Sequence\Sequence;
-use PlanB\DS\Sequence\SequenceImmutableInterface;
-use PlanB\DS\Sequence\SequenceInterface;
+use PlanB\DS\Vector\Vector;
+use PlanB\DS\Vector\VectorImmutableInterface;
+use PlanB\DS\Vector\VectorInterface;
 use PlanB\Tests\DS\Traits\Assertions;
 use PlanB\Tests\DS\Traits\ObjectMother;
-
 use function array_is_list;
 
 
-final class SequenceTest extends TestCase
+final class VectorTest extends TestCase
 {
     use ObjectMother;
     use Assertions;
@@ -24,33 +23,33 @@ final class SequenceTest extends TestCase
 //CORE
     public function test_it_can_be_instantiate()
     {
-        $sequence = Sequence::collect();
-        $this->assertInstanceOf(Sequence::class, $sequence);
-        $this->assertInstanceOf(CollectionInterface::class, $sequence);
-        $this->assertInstanceOf(SequenceInterface::class, $sequence);
+        $vector = Vector::collect();
+        $this->assertInstanceOf(Vector::class, $vector);
+        $this->assertInstanceOf(CollectionInterface::class, $vector);
+        $this->assertInstanceOf(VectorInterface::class, $vector);
     }
 
     public function test_it_is_a_array_list()
     {
-        $sequence = $this->give_me_a_sequence();
+        $vector = $this->give_me_a_vector();
 
-        $this->assertTrue(array_is_list($sequence->toArray()));
+        $this->assertTrue(array_is_list($vector->toArray()));
     }
 
 //INFO
     public function test_it_knows_if_has_an_index()
     {
-        $sequence = $this->give_me_a_sequence();
+        $vector = $this->give_me_a_vector();
 
-        $this->assertTrue($sequence->hasIndex(3));
-        $this->assertFalse($sequence->hasIndex(4));
+        $this->assertTrue($vector->hasIndex(3));
+        $this->assertFalse($vector->hasIndex(4));
     }
 
 //MODIFICATION
     public function test_it_can_be_mapped()
     {
-        $sequence = $this->give_me_a_sequence();
-        $expected = $this->give_me_a_sequence([
+        $vector = $this->give_me_a_vector();
+        $expected = $this->give_me_a_vector([
             'VALUE/A',
             'VALUE/B',
             'VALUE/C',
@@ -58,19 +57,19 @@ final class SequenceTest extends TestCase
         ]);
 
         $callback = fn(string $value, int $key) => strtoupper($value);
-        $mapped = $sequence->map($callback);
+        $mapped = $vector->map($callback);
 
         $this->assertEquals($expected, $mapped);
-        $this->assertInstanceOf(SequenceImmutableInterface::class, $mapped);
+        $this->assertInstanceOf(VectorImmutableInterface::class, $mapped);
 
-        $this->assertCollectionHasNotChange($sequence);
+        $this->assertCollectionHasNotChange($vector);
     }
 
     public function test_it_can_be_transform_into_a_map_properly()
     {
-        $sequence = $this->give_me_a_sequence();
+        $vector = $this->give_me_a_vector();
 
-        $map = $sequence->toMap(fn(string $value) => substr($value, -1));
+        $map = $vector->toMap(fn(string $value) => substr($value, -1));
 
         $expected = $this->give_me_a_map([
             'A' => 'value/A',

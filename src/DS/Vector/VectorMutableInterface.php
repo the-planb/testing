@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace PlanB\DS\Sequence;
+namespace PlanB\DS\Vector;
 
-interface SequenceMutableInterface extends SequenceInterface
+interface VectorMutableInterface extends VectorInterface
 {
     public function addAll(iterable $input): static;
 

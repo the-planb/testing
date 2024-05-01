@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 use PlanB\DS\CollectionInterface;
 use PlanB\DS\Exception\ElementNotFoundException;
 use PlanB\DS\Exception\InvalidElementType;
-use PlanB\DS\Sequence\Sequence;
+use PlanB\DS\Vector\Vector;
 use PlanB\Tests\DS\Traits\Assertions;
 use PlanB\Tests\DS\Traits\ObjectMother;
 use PlanB\Type\ArrayValue;
@@ -104,7 +104,7 @@ final class CollectionTest extends TestCase
 
     public function test_it_is_instantiable_by_a_static_method()
     {
-        $collection = Sequence::collect([
+        $collection = Vector::collect([
             'value/A',
             'value/B',
         ]);
@@ -183,6 +183,14 @@ final class CollectionTest extends TestCase
         $this->assertSame('value/X', $collection->get('X'));
     }
 
+    public function test_it_gets_the_first_element()
+    {
+        $collection = $this->give_me_a_collection();
+
+        $this->assertSame('value/A', $collection->first());
+
+        $this->assertCollectionHasNotChange($collection);
+    }
 
     public function test_it_gets_the_first_element_that_meets_a_condition()
     {
@@ -627,7 +635,7 @@ final class CollectionTest extends TestCase
             ['C' => 'value/C', 'D' => 'value/D', ['E' => 'value/E', ['F' => 'value/F']]],
         ]);
 
-        $expected = $this->give_me_a_sequence([
+        $expected = $this->give_me_a_vector([
             'value/A',
             'value/B',
             'value/C',
@@ -646,14 +654,14 @@ final class CollectionTest extends TestCase
 
         ]);
 
-        $level1 = $this->give_me_a_sequence([
+        $level1 = $this->give_me_a_vector([
             'value/A',
             ['value/B', ['value/C', ['value/D']]],
         ]);
 
         $this->assertEquals($level1, $collection->flatten(1));
 
-        $level2 = $this->give_me_a_sequence([
+        $level2 = $this->give_me_a_vector([
             'value/A',
             'value/B',
             ['value/C', ['value/D']],
@@ -661,7 +669,7 @@ final class CollectionTest extends TestCase
 
         $this->assertEquals($level2, $collection->flatten(2));
 
-        $level3 = $this->give_me_a_sequence([
+        $level3 = $this->give_me_a_vector([
             'value/A',
             'value/B',
             'value/C',
@@ -678,7 +686,7 @@ final class CollectionTest extends TestCase
             'B' => 'value/B',
         ]);
 
-        $expected = $this->give_me_a_sequence([
+        $expected = $this->give_me_a_vector([
             'value/A',
             'value/A',
             'value/A',

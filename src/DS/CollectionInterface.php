@@ -7,7 +7,7 @@ namespace PlanB\DS;
 use Countable;
 use IteratorAggregate;
 use JsonSerializable;
-use PlanB\DS\Sequence\Sequence;
+use PlanB\DS\Vector\Vector;
 use PlanB\Type\ArrayValue;
 
 interface CollectionInterface extends Countable, IteratorAggregate, ArrayValue, JsonSerializable
@@ -68,9 +68,9 @@ interface CollectionInterface extends Countable, IteratorAggregate, ArrayValue, 
 
     public function reduce(callable $callback, mixed $initial = null): mixed;
 
-    public function flatten(int $depth = PHP_INT_MAX): Sequence;
+    public function flatten(int $depth = PHP_INT_MAX): Vector;
 
-    public function flatMap(callable $callback): Sequence;
+    public function flatMap(callable $callback): Vector;
 
     public function collapse(int $depth = PHP_INT_MAX, string $glue = DIRECTORY_SEPARATOR): static;
 

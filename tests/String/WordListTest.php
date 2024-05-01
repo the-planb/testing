@@ -4,8 +4,8 @@ namespace PlanB\Tests\String;
 
 use PHPUnit\Framework\TestCase;
 use PlanB\DS\CollectionInterface;
-use PlanB\DS\Sequence\Sequence;
-use PlanB\DS\Sequence\SequenceInterface;
+use PlanB\DS\Vector\Vector;
+use PlanB\DS\Vector\VectorInterface;
 use PlanB\String\WordList;
 
 class WordListTest extends TestCase
@@ -14,9 +14,9 @@ class WordListTest extends TestCase
     {
         $wordList = WordList::collect();
         $this->assertInstanceOf(WordList::class, $wordList);
-        $this->assertInstanceOf(Sequence::class, $wordList);
+        $this->assertInstanceOf(Vector::class, $wordList);
         $this->assertInstanceOf(CollectionInterface::class, $wordList);
-        $this->assertInstanceOf(SequenceInterface::class, $wordList);
+        $this->assertInstanceOf(VectorInterface::class, $wordList);
     }
 
     public function test_it_is_able_to_get_words_from_a_string()

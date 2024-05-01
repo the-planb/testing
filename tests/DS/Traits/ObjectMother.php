@@ -11,9 +11,9 @@ use PlanB\DS\CollectionInterface;
 use PlanB\DS\Map\Map;
 use PlanB\DS\Map\MapInterface;
 use PlanB\DS\Map\MapMutable;
-use PlanB\DS\Sequence\Sequence;
-use PlanB\DS\Sequence\SequenceInterface;
-use PlanB\DS\Sequence\SequenceMutable;
+use PlanB\DS\Vector\Vector;
+use PlanB\DS\Vector\VectorInterface;
+use PlanB\DS\Vector\VectorMutable;
 use Prophecy\PhpUnit\ProphecyTrait;
 
 trait  ObjectMother
@@ -51,11 +51,11 @@ trait  ObjectMother
         ];
     }
 
-    private function give_me_a_sequence(?iterable $input = null): SequenceInterface
+    private function give_me_a_vector(?iterable $input = null): VectorInterface
     {
         $input = is_null($input) ? $this->give_me_an_array() : $input;
 
-        return Sequence::collect($input);
+        return Vector::collect($input);
     }
 
     private function give_me_a_map(?iterable $input = null): MapInterface
@@ -77,9 +77,9 @@ trait  ObjectMother
         };
     }
 
-    private function give_me_a_mutable_and_typed_sequence(iterable $input = [], array $types = [], bool $filter = true): SequenceMutable
+    private function give_me_a_mutable_and_typed_vector(iterable $input = [], array $types = [], bool $filter = true): VectorMutable
     {
-        return new #[ElementType('string')] class($input, $types, $filter) extends SequenceMutable {
+        return new #[ElementType('string')] class($input, $types, $filter) extends VectorMutable {
 
         };
     }

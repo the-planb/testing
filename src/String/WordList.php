@@ -3,10 +3,10 @@
 namespace PlanB\String;
 
 use PlanB\DS\Attribute\ElementType;
-use PlanB\DS\Sequence\Sequence;
+use PlanB\DS\Vector\Vector;
 
 #[ElementType('string', \Stringable::class)]
-final class WordList extends Sequence
+final class WordList extends Vector
 {
     public static function explode(string $text, string $separator = null, int $limit = null): self
     {

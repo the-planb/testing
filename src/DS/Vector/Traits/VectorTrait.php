@@ -2,30 +2,30 @@
 
 declare(strict_types=1);
 
-namespace PlanB\DS\Sequence\Traits;
+namespace PlanB\DS\Vector\Traits;
 
 use PlanB\DS\Map\Map;
-use PlanB\DS\Sequence\Sequence;
+use PlanB\DS\Vector\Vector;
 
 /**
  * @template Key of int
  * @template Value
  */
-trait SequenceTrait
+trait VectorTrait
 {
     /**
      * @template ReturnType
      * @param callable(Value, Key): ReturnType $callback
-     * @return Sequence<ReturnType>
+     * @return Vector<ReturnType>
      */
-    public function map(callable $callback): Sequence
+    public function map(callable $callback): Vector
     {
         $input = [];
         foreach ($this as $key => $value) {
             $input[$key] = $callback($value, $key);
         }
 
-        return new Sequence($input);
+        return new Vector($input);
     }
 
     public function hasIndex(int $index): bool

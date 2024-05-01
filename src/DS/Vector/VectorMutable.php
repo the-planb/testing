@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace PlanB\DS\Sequence;
+namespace PlanB\DS\Vector;
 
 use PlanB\DS\Collection;
-use PlanB\DS\Sequence\Traits\SequenceTrait;
+use PlanB\DS\Vector\Traits\VectorTrait;
 
 /**
  * @template Key of int
  * @template Value
  * @template-extends Collection<Key, Value>
  */
-class SequenceMutable extends Collection implements SequenceMutableInterface
+class VectorMutable extends Collection implements VectorMutableInterface
 {
     /**
-     * @use SequenceTrait<Key, Value>
+     * @use VectorTrait<Key, Value>
      */
-    use SequenceTrait;
+    use VectorTrait;
 
     /**
      * @param Value[] $input

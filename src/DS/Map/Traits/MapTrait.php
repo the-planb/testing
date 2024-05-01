@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace PlanB\DS\Map\Traits;
 
 use PlanB\DS\Map\Map;
-use PlanB\DS\Sequence\Sequence;
 use PlanB\DS\Traits\CollectionTrait;
+use PlanB\DS\Vector\Vector;
 
 /**
  * @template Key of string|int
@@ -31,19 +31,19 @@ trait MapTrait
     }
 
     /**
-     * @return Sequence<Value>
+     * @return Vector<Value>
      */
-    public function values(): Sequence
+    public function values(): Vector
     {
-        return new Sequence(array_values($this->data));
+        return new Vector(array_values($this->data));
     }
 
     /**
-     * @return Sequence<Key>
+     * @return Vector<Key>
      */
-    public function keys(): Sequence
+    public function keys(): Vector
     {
-        return new Sequence(array_keys($this->data));
+        return new Vector(array_keys($this->data));
     }
 
     /**

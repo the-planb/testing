@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace PlanB\DS\Map;
 
 use PlanB\DS\CollectionInterface;
-use PlanB\DS\Sequence\Sequence;
+use PlanB\DS\Vector\Vector;
 
 interface MapInterface extends CollectionInterface
 {
     // INFO
     public function hasKey(int|string $key): bool;
 
-    public function values(): Sequence;
+    public function values(): Vector;
 
-    public function keys(): Sequence;
+    public function keys(): Vector;
 
 
     // MODIFICATION
