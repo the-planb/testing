@@ -154,9 +154,10 @@ trait CollectionTrait
 
     public function take(int $numOfElements): static
     {
-        $numOfElements = $numOfElements >= 1 ? $numOfElements : 0;
+        $length = abs($numOfElements);
+        $offset = $numOfElements < 0 ? $this->count() - $length : 0;
 
-        $input = array_slice($this->data, 0, $numOfElements, true);
+        $input = array_slice($this->data, $offset, $length, true);
 
         return $this->replicate($input);
     }
@@ -172,11 +173,10 @@ trait CollectionTrait
      */
     public function drop(int $numOfElements): static
     {
-        $numOfElements = $numOfElements >= 1 ? $numOfElements : 0;
-        $length = $this->count() - $numOfElements;
+        $length = $this->count() - abs($numOfElements);
+        $offset = max($numOfElements, 0);
 
-        $input = array_slice($this->data, $numOfElements, $length, true);
-
+        $input = array_slice($this->data, $offset, $length, true);
         return $this->replicate($input);
     }
 

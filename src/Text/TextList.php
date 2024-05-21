@@ -4,13 +4,19 @@ namespace PlanB\Text;
 
 use PlanB\DS\Attribute\ElementType;
 use PlanB\DS\Collection;
-use PlanB\DS\Vector\Traits\VectorTrait;
-use PlanB\DS\Vector\VectorInterface;
+use PlanB\DS\Vector\Traits\VectorMutableTrait;
+use PlanB\DS\Vector\VectorMutableInterface;
 
+/**
+ * @template-extends Collection<int, \Stringable::class>
+ */
 #[ElementType('string', \Stringable::class)]
-final class TextList extends Collection implements VectorInterface
+final class TextList extends Collection implements VectorMutableInterface
 {
-    use VectorTrait;
+    /**
+     * @use VectorMutableTrait<int, \Stringable::class>
+     */
+    use VectorMutableTrait;
 
     final public function __construct(iterable|string $input = [])
     {

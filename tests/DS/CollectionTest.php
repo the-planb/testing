@@ -320,18 +320,18 @@ final class CollectionTest extends TestCase
         $this->assertCollectionHasNotChange($collection);
     }
 
-    public function test_it_take_method_retuns_an_empty_collection_if_param_is_zero_or_negative()
+    public function test_it_take_method_works_with_zero_or_negative_numbers()
     {
         $collection = $this->give_me_a_collection();
 
         $this->assertEquals([], $collection->take(0)->toArray());
-        $this->assertEquals([], $collection->take(-1)->toArray());
-        $this->assertEquals([], $collection->take(-2)->toArray());
+        $this->assertEquals(['D' => 'value/D'], $collection->take(-1)->toArray());
+        $this->assertEquals(['C' => 'value/C', 'D' => 'value/D'], $collection->take(-2)->toArray());
 
         $this->assertCollectionHasNotChange($collection);
     }
 
-    public function test_it_take_method_retuns_all_elemetns_if_param_is_greater_than_the_collection_size()
+    public function test_it_take_method_returns_all_elemetns_if_param_is_greater_than_the_collection_size()
     {
         $collection = $this->give_me_a_collection();
 
@@ -352,18 +352,30 @@ final class CollectionTest extends TestCase
         $this->assertCollectionHasNotChange($collection);
     }
 
-    public function test_it_drop_method_retuns_all_elemetns_if_param_is_zero_or_negative()
+    public function test_it_drop_method_works_with_zero_or_negative_numbers()
     {
         $collection = $this->give_me_a_collection();
 
         $this->assertEquals($collection, $collection->drop(0));
         $this->assertNotSame($collection, $collection->drop(0));
 
-        $this->assertEquals($collection, $collection->drop(-1));
-        $this->assertNotSame($collection, $collection->drop(-1));
+
+        $this->assertEquals([
+            'A' => 'value/A',
+            'B' => 'value/B',
+            'C' => 'value/C',
+        ], $collection->drop(-1)->toArray());
+
+        $this->assertEquals([
+            'A' => 'value/A',
+            'B' => 'value/B',
+        ], $collection->drop(-2)->toArray());
+
+
+        //        $this->assertNotSame($collection, $collection->drop(-1));
     }
 
-    public function test_it_drop_method_retuns_an_empty_collection_if_param_greater_than_collection_size()
+    public function test_it_drop_method_returns_an_empty_collection_if_param_greater_than_collection_size()
     {
         $collection = $this->give_me_a_collection();
 
