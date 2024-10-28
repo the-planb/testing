@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PlanB\Tests\Validation;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use PlanB\Validation\Traits\Exception\ConstraintNotFoundException;
 use PlanB\Validation\Traits\ValidableTrait;
@@ -32,25 +33,21 @@ final class ValidableTraitTest extends TestCase
         $sut->assert('value');
     }
 
-    /**
-     * @dataProvider validProvider
-     */
+    #[DataProvider('validProvider')]
     public function test_assert_method_return_nothing_when_call_it_with_a_valid_input($sut, $input)
     {
         is_array($input) ? $sut->assert(...$input) : $sut->assert($input);
         $this->addToAssertionCount(1);
     }
 
-    /**
-     * @dataProvider validProvider
-     */
+    #[DataProvider('validProvider')]
     public function test_isValid_method_return_true_when_call_it_with_a_valid_input($sut, $input)
     {
         $response = is_array($input) ? $sut->isValid(...$input) : $sut->isValid($input);
         $this->assertTrue($response);
     }
 
-    public function validProvider()
+    public static function validProvider(): array
     {
         return [
             [new Simple(), 'antonio'],
@@ -58,18 +55,14 @@ final class ValidableTraitTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider invalidProvider
-     */
+    #[DataProvider('invalidProvider')]
     public function test_isValid_method_return_false_when_call_it_with_a_valid_input($sut, $input)
     {
         $response = is_array($input) ? $sut->isValid(...$input) : $sut->isValid($input);
         $this->assertFalse($response);
     }
 
-    /**
-     * @dataProvider invalidProvider
-     */
+    #[DataProvider('invalidProvider')]
     public function test_assert_method_throws_an_exception_when_call_it_with_a_invalid_input($sut, $input)
     {
         $this->expectExceptionMessage('This value is too short. It should have 5 characters or more.');
@@ -77,7 +70,7 @@ final class ValidableTraitTest extends TestCase
         is_array($input) ? $sut->assert(...$input) : $sut->assert($input);
     }
 
-    public function invalidProvider()
+    public static function invalidProvider(): array
     {
         return [
             [new Simple(), 'pepe'],

@@ -8,6 +8,7 @@ use Countable;
 use DateTime;
 use IteratorAggregate;
 use JsonSerializable;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use PlanB\DS\CollectionInterface;
 use PlanB\DS\Exception\ElementNotFoundException;
@@ -135,7 +136,8 @@ final class CollectionTest extends TestCase
         $this->assertEquals($input, $data);
     }
 
-    /** @dataProvider countProvider */
+
+    #[DataProvider('countProvider')]
     public function test_it_knows_how_many_elements_has(array $input, int $total, $empty)
     {
         $collection = $this->give_me_a_collection($input);
@@ -147,7 +149,7 @@ final class CollectionTest extends TestCase
 
     //COUNT
 
-    public function countProvider()
+    public static function countProvider(): array
     {
         $data = fn(int $total) => array_fill(0, $total, '*');
 
