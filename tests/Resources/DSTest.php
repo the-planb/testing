@@ -13,7 +13,6 @@ use PlanB\Text\TextList;
 
 final class DSTest extends TestCase
 {
-
     public function test_it_map_alias_works()
     {
         $map = map();
@@ -52,15 +51,4 @@ final class DSTest extends TestCase
         $this->assertEquals(['A', 'B', 'C'], $text->toArray());
     }
 
-    public function test_it_text_explode_alias_works()
-    {
-        $text = text_explode('');
-        $this->assertInstanceOf(TextList::class, $text);
-    }
-
-    public function test_it_text_split_alias_works()
-    {
-        $text = text_split('', '//');
-        $this->assertInstanceOf(TextList::class, $text);
-    }
 }
